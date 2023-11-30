@@ -3,11 +3,15 @@ module Api
     class BooksController < ApplicationController
       protect_from_forgery with: :null_session 
       def index
-        render json: Book.all
+        books = Book.all 
+        # render json: Book.all
+        # instead of loading all the data, we can choose and define the needed data using a representetor
+        render json: BooksRepresenter.new(books).as_json
       end
 
       def create 
-        book = Book.new(book_params)
+        author = Author.create!(author_params)
+        book = Book.new(book_params.merge(author_id: author.id))
         if book.save 
           render json: book, status: :created
         else
@@ -21,8 +25,11 @@ module Api
       end
       
       private 
+      def author_params 
+        params.require(:author).permit(:first_name,:last_name,:age)
+      end
       def book_params 
-        params.require(:book).permit(:title, :author)
+        params.require(:book).permit(:title)
       end
     end
   end
