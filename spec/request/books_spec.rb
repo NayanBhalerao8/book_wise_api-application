@@ -18,5 +18,13 @@ describe 'books api', type: :request do
           }.to change {Book.count}.by(1)
           expect(response).to have_http_status(:created)
         end
-    end      
+    end    
+
+   describe 'DELETE books/:id', type: :request do 
+    it 'should delete a book' do 
+      FactoryBot.create(:book, title: '1987', author: "nayan bhalerao")
+      delete '/api/v1/books/1'
+      expect(response).to have_http_status(:no_content)
+    end
+   end
 end
