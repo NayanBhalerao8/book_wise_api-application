@@ -30,6 +30,25 @@ describe 'books api', type: :request do
         end
     end
 
+    describe "returns a subset of books based on pagination", type: :request do
+      it "api/v1/books" do 
+        get '/api/v1/books', params: { limit: 1}
+        expect(response).to have_http_status(:success)
+        expect(response_body.size).to eq(1)
+        expect(response_body).to eq (
+          [
+            {"author_age"=>55, 
+              "author_name"=>"John donut", 
+              "id"=>1, 
+              "title"=>"1987"}
+            ]
+          )
+      end
+    end
+  
+
+
+
     describe 'POST /books', type: :request do 
         it 'should create a new book' do
           expect {
@@ -57,4 +76,6 @@ describe 'books api', type: :request do
         expect(response).to have_http_status(:no_content)
       end
    end
+
+   
 end
