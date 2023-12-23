@@ -3,7 +3,7 @@ module Api
     class BooksController < ApplicationController
       protect_from_forgery with: :null_session 
       def index
-        books = Book.all.offset(params[:offset]).limit(:limit)
+        books = Book.all   #.offset(params[:offset]).limit(:limit)  this code gives problem to find the index book for map function in Book representator
         # render json: Book.all
         # instead of loading all the data, we can choose and define the needed data using a representetor
         render json: BooksRepresenter.new(books).as_json

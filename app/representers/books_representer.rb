@@ -4,6 +4,7 @@ class BooksRepresenter
     end
 
     def as_json 
+         
         @books.map do |book| 
             {
                 id: book.id,
@@ -17,6 +18,7 @@ class BooksRepresenter
     end
 
     def author_name(book)
+         
         "#{book.author.first_name} #{book.author.last_name}"
     end
     private
