@@ -20,5 +20,8 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+    
+    For Docker containers just need to run the following command
+    docker-compose up --force-recreate --remove-orphans --build -d
 
 * ...
